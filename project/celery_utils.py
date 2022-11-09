@@ -29,4 +29,3 @@ def get_task_info(task_id):
             "state": task.state,
         }
     return response
-

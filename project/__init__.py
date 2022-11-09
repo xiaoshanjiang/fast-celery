@@ -11,13 +11,16 @@ def create_app() -> FastAPI:
 
     # do this before loading routes
     from project.celery_utils import create_celery
+
     app.celery_app = create_celery()
 
     from project.users import users_router
+
     app.include_router(users_router)
 
-    from project.ws import ws_router                   # new
-    app.include_router(ws_router)                      # new
+    from project.ws import ws_router  # new
+
+    app.include_router(ws_router)  # new
 
     @app.on_event("startup")
     async def startup_event():

@@ -16,6 +16,7 @@ def divide(x, y):
     # rdb.set_trace()
 
     import time
+
     time.sleep(5)
     return x / y
 
@@ -40,8 +41,9 @@ def task_process_notification(self):
         logger.error("exception raised, it would be retry after 5 seconds")
         raise self.retry(exc=e, countdown=5)
 
-    
+
 @task_postrun.connect
 def task_postrun_handler(task_id, **kwargs):
     from project.ws.views import update_celery_task_status
+
     async_to_sync(update_celery_task_status)(task_id)

@@ -1,8 +1,7 @@
-from pydantic import BaseModel 
+from pydantic import BaseModel
 
 
 class UserBody(BaseModel):
 
-    username: str 
+    username: str
     email: str
-    
