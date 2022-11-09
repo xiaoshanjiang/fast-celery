@@ -38,7 +38,6 @@ class BaseConfig:
     CELERY_TASK_QUEUES: list = (
         # need to define default queue here or exception would be raised
         Queue("default"),
-
         Queue("high_priority"),
         Queue("low_priority"),
     )
@@ -60,11 +59,7 @@ class TestingConfig(BaseConfig):
 
 @lru_cache()
 def get_settings():
-    config_cls_dict = {
-        "development": DevelopmentConfig,
-        "production": ProductionConfig,
-        "testing": TestingConfig
-    }
+    config_cls_dict = {"development": DevelopmentConfig, "production": ProductionConfig, "testing": TestingConfig}
 
     config_name = os.environ.get("FASTAPI_CONFIG", "development")
     config_cls = config_cls_dict[config_name]
