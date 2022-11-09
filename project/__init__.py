@@ -9,6 +9,10 @@ broadcast = Broadcast(settings.WS_MESSAGE_QUEUE)
 def create_app() -> FastAPI:
     app = FastAPI()
 
+    from project.logging import configure_logging  # new
+
+    configure_logging()  # new
+
     # do this before loading routes
     from project.celery_utils import create_celery
 
@@ -22,9 +26,9 @@ def create_app() -> FastAPI:
 
     app.include_router(ws_router)
 
-    from project.ws.views import register_socketio_app  # new
+    from project.ws.views import register_socketio_app
 
-    register_socketio_app(app)  # new
+    register_socketio_app(app)
 
     @app.on_event("startup")
     async def startup_event():
